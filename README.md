@@ -1,5 +1,7 @@
 # kubectl-daemons
 
+[![Lint](https://github.com/jaymzh/kubectl-daemons/workflows/Lint/badge.svg)](https://github.com/jaymzh/kubectl-daemons/actions?query=workflow%3ALint) [![Build](https://github.com/jaymzh/kubectl-daemons/workflows/Build/badge.svg)](https://github.com/jaymzh/kubectl-daemons/actions?query=workflow%3ABuild) [![DCO](https://github.com/jaymzh/kubectl-daemons/workflows/DCO%20Check/badge.svg)](https://github.com/jaymzh/kubectl-daemons/actions?query=workflow%3A%22DCO+Check%22)
+
 ## Intro
 
 kubectl-daemons is a kubectl plugin to help with daemonset work. When running
