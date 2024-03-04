@@ -12,7 +12,7 @@ import (
 )
 
 
-func NewDshGetCommand(
+func newDshGetCommand(
     out io.Writer, namespace *string, nodeName *string,
 ) *cobra.Command {
     dshGet := &dshCmd{

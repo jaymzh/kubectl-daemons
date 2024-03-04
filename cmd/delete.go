@@ -9,7 +9,7 @@ import (
     metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-func NewDshDeleteCommand(
+func newDshDeleteCommand(
     out io.Writer, namespace *string, nodeName *string,
 ) *cobra.Command {
     dshDelete := &dshCmd{

@@ -21,18 +21,46 @@ kubectl d get <daemonset> -N <node>
 
 ## General Usage
 
-Here's a bunch more examples:
+Get pods from a daemonset:
 
-* Get all pods from a specific daemonset: `kubectl d get <daemonset>`
-* Get all pods from all daemonsets on a specific node: `kubectl d get -N <nodename>`
-* Delete the pod from a daemonset on a specific node: `kubectl d delete <daemonset> -N <nodename>`
+```bash
+kubectl d get <daemonset>
+```
 
-Like most kubectl commands it takes `-n <namespace>` wherever applicable.
+Or get the pod from a daemonset on a specific node
 
-Other commands coming soon:
+```bash
+kubectl d get <daemonset> -N <node>
+```
 
-* logs: `kubectl d logs <daemonset> -N <node>` (-N would be required)
-* describe: `kubectl d describe <daemonset> -N <node>` (same)
+Or get all daemonset-related pods on a node.  I think of this as the equivalent
+of asking systemd to list all services on a node. :)
+
+```bash
+kubectl d get -N <nodename>
+```
+
+NOTE: `-o` is not yet implemented for `get`.
+
+Or you can delete the pod from a daemonset on a specific node
+
+```bash
+kubectl d delete <daemonset> -N <nodename>
+```
+
+You can do logs as well:
+
+```bash
+kubectl d logs <daemonset> -N <node>
+```
+
+NOTE: -N is required here.
+
+And you can even describe:
+
+```bash
+kubectl d describe <daemonset> [-N <node>] # node optional
+```
 
 ## Building
 
@@ -61,3 +89,23 @@ git tag -a v${version?} -m "version ${version?}" -s
 git push origin --tags
 goreleaser release
 ```
+
+## Thanks
+
+A huge thanks to Benjamin Muschko's [Writing your first kubectl plugin](https://bmuschko.com/blog/writing-your-first-kubectl-plugin/) blog post and associated [GH repo](https://github.com/bmuschko/kubectl-server-version). This was invaluable in getting me up and running.
+
+## FAQ
+
+**Why not just write a simple shell wrapper?**
+
+For many reasons. First, I had that, and it's quite slow. You end up doing more queries than you need, and if your API servers are on the other side of privatelinks, it can get quite slow.
+
+Second, I wanted a good excuse to learn some golang and get better at Kube internals.
+
+**Aren't there already other plugins that do this?**
+
+Not that I could find!
+
+**Can I contribute?**
+
+Sure, send a pull request!

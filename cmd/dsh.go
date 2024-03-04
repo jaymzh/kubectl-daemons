@@ -31,8 +31,10 @@ func NewDshCommand(streams genericclioptions.IOStreams) *cobra.Command {
         &nodeName, "node", "N", "", "Limit to pods on node",
     )
 
-    dshCmd.AddCommand(newVersionCmd(streams.Out))
-    dshCmd.AddCommand(NewDshGetCommand(streams.Out, &namespace, &nodeName))
-    dshCmd.AddCommand(NewDshDeleteCommand(streams.Out, &namespace, &nodeName))
+    dshCmd.AddCommand(newVersionCommand(streams.Out))
+    dshCmd.AddCommand(newDshGetCommand(streams.Out, &namespace, &nodeName))
+    dshCmd.AddCommand(newDshDeleteCommand(streams.Out, &namespace, &nodeName))
+    dshCmd.AddCommand(newDshDescribeCommand(streams.Out, &namespace, &nodeName))
+    dshCmd.AddCommand(newDshLogCommand(streams.Out, &namespace, &nodeName))
     return dshCmd
 }
