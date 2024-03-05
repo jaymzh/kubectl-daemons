@@ -42,8 +42,6 @@ of asking systemd to list all services on a node. :)
 kubectl d get -N <nodename>
 ```
 
-NOTE: `-o` is not yet implemented for `get`.
-
 Or you can delete the pod from a daemonset on a specific node
 
 ```bash
