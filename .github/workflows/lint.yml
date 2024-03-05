@@ -23,3 +23,10 @@ jobs:
         with:
           version: latest
           args: --timeout=5m
+  markdownlint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: MarkdownLint mdl Action
+        uses: actionshub/markdownlint@1.2.0
