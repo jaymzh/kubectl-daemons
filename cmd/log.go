@@ -12,7 +12,7 @@ import (
 )
 
 func newDshLogCommand(
-    out io.Writer, namespace *string, nodeName *string,
+    out io.Writer, context *string, namespace *string, nodeName *string,
 ) *cobra.Command {
     var container string
     var tail int
@@ -28,7 +28,7 @@ func newDshLogCommand(
         Args: cobra.MatchAll(cobra.ExactArgs(1)),
         RunE: func(cmd *cobra.Command, args []string) error {
             return dshLog.getLogs(
-                *namespace, args[0], *nodeName, container, follow, &tail,
+                *context, *namespace, args[0], *nodeName, container, follow, &tail,
             )
         },
     }
@@ -48,10 +48,10 @@ func newDshLogCommand(
 }
 
 func (sv *dshCmd) getLogs(
-    namespace string, ds string, nodeName string, container string, follow bool,
-    lines *int,
+    ccontext string, namespace string, ds string, nodeName string, container string,
+    follow bool, lines *int,
 ) error {
-    clientset, err := getClientSet()
+    clientset, err := getClientSet(ccontext)
     if err != nil {
         return err
     }

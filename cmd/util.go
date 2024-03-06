@@ -8,9 +8,11 @@ import (
     metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-func getClientSet() (*kubernetes.Clientset, error) {
+func getClientSet(context string) (*kubernetes.Clientset, error) {
     loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
-    configOverrides := &clientcmd.ConfigOverrides{}
+    configOverrides := &clientcmd.ConfigOverrides{
+        CurrentContext: context,
+    }
     kubeConfig := clientcmd.NewNonInteractiveDeferredLoadingClientConfig(
         loadingRules, configOverrides,
     )

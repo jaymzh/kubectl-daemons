@@ -14,7 +14,7 @@ import (
 )
 
 func newDshDescribeCommand(
-    out io.Writer, namespace *string, nodeName *string,
+    out io.Writer, context *string, namespace *string, nodeName *string,
 ) *cobra.Command {
     dshDescribe := &dshCmd{
         out: out,
@@ -29,7 +29,7 @@ func newDshDescribeCommand(
             if len(args) == 1 {
                 ds = args[0]
             }
-            return dshDescribe.describePods(*namespace, ds, *nodeName)
+            return dshDescribe.describePods(*context, *namespace, ds, *nodeName)
         },
     }
 
@@ -37,9 +37,9 @@ func newDshDescribeCommand(
 }
 
 func (sv *dshCmd) describePods(
-    namespace string, ds string, nodeName string,
+    ccontext string, namespace string, ds string, nodeName string,
 ) error {
-    clientset, err := getClientSet()
+    clientset, err := getClientSet(ccontext)
     if err != nil {
         return err
     }

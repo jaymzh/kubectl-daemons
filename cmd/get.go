@@ -17,7 +17,7 @@ import (
 
 
 func newDshGetCommand(
-    out io.Writer, namespace *string, nodeName *string,
+    out io.Writer, context *string, namespace *string, nodeName *string,
 ) *cobra.Command {
     var output string
 
@@ -34,7 +34,7 @@ func newDshGetCommand(
             if len(args) == 1 {
                 ds = args[0]
             }
-            return dshGet.getPods(*namespace, ds, *nodeName, output)
+            return dshGet.getPods(*context, *namespace, ds, *nodeName, output)
         },
     }
 
@@ -46,9 +46,9 @@ func newDshGetCommand(
 }
 
 func (sv *dshCmd) getPods(
-    namespace string, ds string, nodeName string, output string,
+    context string, namespace string, ds string, nodeName string, output string,
 ) error {
-    clientset, err := getClientSet()
+    clientset, err := getClientSet(context)
     if err != nil {
         return err
     }

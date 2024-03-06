@@ -10,7 +10,7 @@ import (
 )
 
 func newDshDeleteCommand(
-    out io.Writer, namespace *string, nodeName *string,
+    out io.Writer, context *string, namespace *string, nodeName *string,
 ) *cobra.Command {
     dshDelete := &dshCmd{
         out: out,
@@ -21,7 +21,7 @@ func newDshDeleteCommand(
         Short: "delete pods for <ds>",
         Args: cobra.MatchAll(cobra.ExactArgs(1)),
         RunE: func(cmd *cobra.Command, args []string) error {
-            return dshDelete.deletePods(*namespace, args[0], *nodeName)
+            return dshDelete.deletePods(*context, *namespace, args[0], *nodeName)
         },
     }
 
@@ -29,9 +29,9 @@ func newDshDeleteCommand(
 }
 
 func (sv *dshCmd) deletePods(
-    namespace string, ds string, nodeName string,
+    ccontext string, namespace string, ds string, nodeName string,
 ) error {
-    clientset, err := getClientSet()
+    clientset, err := getClientSet(ccontext)
     if err != nil {
         return err
     }
