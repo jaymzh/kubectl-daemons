@@ -12,6 +12,7 @@ type dshCmd struct {
 }
 
 func NewDshCommand(streams genericclioptions.IOStreams) *cobra.Command {
+    var context string
     var namespace string
     var nodeName string
 
@@ -25,6 +26,9 @@ func NewDshCommand(streams genericclioptions.IOStreams) *cobra.Command {
     }
 
     dshCmd.PersistentFlags().StringVarP(
+        &context, "context", "", "", "Context",
+    )
+    dshCmd.PersistentFlags().StringVarP(
         &namespace, "namespace", "n", "default", "Namespace to look in",
     )
     dshCmd.PersistentFlags().StringVarP(
@@ -32,9 +36,9 @@ func NewDshCommand(streams genericclioptions.IOStreams) *cobra.Command {
     )
 
     dshCmd.AddCommand(newVersionCommand(streams.Out))
-    dshCmd.AddCommand(newDshGetCommand(streams.Out, &namespace, &nodeName))
-    dshCmd.AddCommand(newDshDeleteCommand(streams.Out, &namespace, &nodeName))
-    dshCmd.AddCommand(newDshDescribeCommand(streams.Out, &namespace, &nodeName))
-    dshCmd.AddCommand(newDshLogCommand(streams.Out, &namespace, &nodeName))
+    dshCmd.AddCommand(newDshGetCommand(streams.Out, &context, &namespace, &nodeName))
+    dshCmd.AddCommand(newDshDeleteCommand(streams.Out, &context, &namespace, &nodeName))
+    dshCmd.AddCommand(newDshDescribeCommand(streams.Out, &context, &namespace, &nodeName))
+    dshCmd.AddCommand(newDshLogCommand(streams.Out, &context, &namespace, &nodeName))
     return dshCmd
 }
