@@ -69,7 +69,19 @@ And you can even describe:
 kubectl d describe <daemonset> [-N <node>] # node optional
 ```
 
-## Building
+## Installing
+
+The easiest way to install, right now, is to grab the right build from our
+[releases](https://github.com/jaymzh/kubectl-daemons/releases) page, and drop
+the binary (`kubectl-d`) in your PATH.
+
+If you get an error like "macOS cannot verify this app..." see [this page](
+https://zaiste.net/os/macos/howtos/resolve-macos-cannot-be-opened-because-the-developer-cannot-be-verified-error/).
+
+We've submitted this plugin to Kraw, and will update these installation
+instructions once that's merged.
+
+## Building from source
 
 The quick-n-easy way to build is:
 
