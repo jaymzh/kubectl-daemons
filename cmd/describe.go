@@ -21,8 +21,8 @@ func newDshDescribeCommand(
     }
 
     cmd := &cobra.Command{
-        Use: "describe",
-        Short: "describe pods for <ds>",
+        Use: "describe <daemonset> [<options>]",
+        Short: "describe pods for <daemonset>",
         Args: cobra.MatchAll(cobra.MaximumNArgs(1)),
         RunE: func(cmd *cobra.Command, args []string) error {
             ds := ""

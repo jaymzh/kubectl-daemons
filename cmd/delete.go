@@ -17,8 +17,8 @@ func newDshDeleteCommand(
     }
 
     cmd := &cobra.Command{
-        Use:   "delete",
-        Short: "delete pods for <ds>",
+        Use:   "delete <daemonset> [<options>]",
+        Short: "delete pods for <daemonset>",
         Args: cobra.MatchAll(cobra.ExactArgs(1)),
         RunE: func(cmd *cobra.Command, args []string) error {
             return dshDelete.deletePods(*context, *namespace, args[0], *nodeName)
