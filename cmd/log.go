@@ -23,8 +23,8 @@ func newDshLogCommand(
     }
 
     cmd := &cobra.Command{
-        Use:   "log",
-        Short: "get logs for <ds>",
+        Use:   "log <daemonset> [<options>]",
+        Short: "get logs for <daemonset>",
         Args: cobra.MatchAll(cobra.ExactArgs(1)),
         RunE: func(cmd *cobra.Command, args []string) error {
             return dshLog.getLogs(

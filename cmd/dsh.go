@@ -17,7 +17,7 @@ func NewDshCommand(streams genericclioptions.IOStreams) *cobra.Command {
     var nodeName string
 
     dshCmd := &cobra.Command{
-        Use: "d",
+        Use: "d <subcommand>",
         Short: "Various helpers for daemonsets",
         SilenceUsage: true,
         RunE: func (c *cobra.Command, args []string) error {
@@ -40,5 +40,6 @@ func NewDshCommand(streams genericclioptions.IOStreams) *cobra.Command {
     dshCmd.AddCommand(newDshDeleteCommand(streams.Out, &context, &namespace, &nodeName))
     dshCmd.AddCommand(newDshDescribeCommand(streams.Out, &context, &namespace, &nodeName))
     dshCmd.AddCommand(newDshLogCommand(streams.Out, &context, &namespace, &nodeName))
+    dshCmd.AddCommand(newDshListCommand(streams.Out, &context, &namespace, &nodeName))
     return dshCmd
 }

@@ -26,8 +26,8 @@ func newDshGetCommand(
     }
 
     cmd := &cobra.Command{
-        Use:   "get",
-        Short: "get pods for <ds>",
+        Use:   "get <daemonset> [<options>]",
+        Short: "get pods for <daemonset>",
         Args: cobra.MatchAll(cobra.MaximumNArgs(1)),
         RunE: func(cmd *cobra.Command, args []string) error {
             ds := ""

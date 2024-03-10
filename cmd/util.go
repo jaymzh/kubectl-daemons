@@ -26,33 +26,66 @@ func getClientSet(context string) (*kubernetes.Clientset, error) {
     return clientset, err
 }
 
-func getPodsForDaemonSet(
-    clientset *kubernetes.Clientset, daemonSetName, namespace string,
-    nodeName string,
-) ([]corev1.Pod, error) {
-	var pods []corev1.Pod
-
-    podList, err := clientset.CoreV1().Pods(namespace).List(
-        context.TODO(), metav1.ListOptions{},
+func getDaemonSetsForNode(
+    clientset *kubernetes.Clientset, namespace string, nodeName string,
+) ([]string, error) {
+    _, daemonSets, err := getDaemonSetInfo(
+        clientset, "", namespace, nodeName,
     )
     if err != nil {
         return nil, err
     }
 
-	for _, pod := range podList.Items {
+    return daemonSets, err
+}
+
+func getPodsForDaemonSet(
+    clientset *kubernetes.Clientset, daemonSetName, namespace string,
+    nodeName string,
+) ([]corev1.Pod, error) {
+    pods, _, err := getDaemonSetInfo(
+        clientset, daemonSetName, namespace, nodeName,
+    )
+    if err != nil {
+        return nil, err
+    }
+    return pods, err
+}
+
+func getDaemonSetInfo(
+    clientset *kubernetes.Clientset, daemonSetName, namespace string,
+    nodeName string,
+) ([]corev1.Pod, []string, error) {
+    var pods []corev1.Pod
+    ds_set := make(map[string]struct{})
+
+    podList, err := clientset.CoreV1().Pods(namespace).List(
+        context.TODO(), metav1.ListOptions{},
+    )
+    if err != nil {
+        return nil, nil, err
+    }
+
+    for _, pod := range podList.Items {
         if nodeName != "" && pod.Spec.NodeName != nodeName {
             continue
         }
-		for _, owner := range pod.OwnerReferences {
-			if owner.Kind == "DaemonSet" && (
+        for _, owner := range pod.OwnerReferences {
+            if owner.Kind == "DaemonSet" && (
                     daemonSetName == "" || owner.Name == daemonSetName) {
-				pods = append(pods, pod)
-				break
-			}
-		}
-	}
+                pods = append(pods, pod)
+                ds_set[owner.Name] = struct{}{}
+                break
+            }
+        }
+    }
 
-	return pods, nil
+    var daemonSets []string
+    for k := range ds_set {
+        daemonSets = append(daemonSets, k)
+    }
+
+    return pods, daemonSets, nil
 }
 
 func countReadyContainers(
