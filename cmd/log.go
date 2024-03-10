@@ -33,6 +33,8 @@ func newDshLogCommand(
         },
     }
 
+    cmd.Aliases = []string{"logs"}
+
     cmd.Flags().IntVarP(
         &tail, "tail", "t", 0, "Number of lines",
     )
