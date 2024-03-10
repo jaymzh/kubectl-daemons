@@ -41,5 +41,6 @@ func NewDshCommand(streams genericclioptions.IOStreams) *cobra.Command {
     dshCmd.AddCommand(newDshDescribeCommand(streams.Out, &context, &namespace, &nodeName))
     dshCmd.AddCommand(newDshLogCommand(streams.Out, &context, &namespace, &nodeName))
     dshCmd.AddCommand(newDshListCommand(streams.Out, &context, &namespace, &nodeName))
+    dshCmd.AddCommand(newDshExecCommand(streams.Out, &context, &namespace, &nodeName))
     return dshCmd
 }
