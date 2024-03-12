@@ -28,6 +28,11 @@ func newDshGetCommand(
     cmd := &cobra.Command{
         Use:   "get <daemonset> [<options>]",
         Short: "get pods for <daemonset>",
+        Long:
+`Get poddescribed matching a given daemonset and node. Any combination is allowed.
+If only a node is specified all pods owned by a daemonset on that node will be
+shown. If only a daemonset is specified, a all pods in that daemonset will
+be shown.`,
         Args: cobra.MatchAll(cobra.MaximumNArgs(1)),
         RunE: func(cmd *cobra.Command, args []string) error {
             ds := ""

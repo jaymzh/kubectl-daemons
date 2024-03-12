@@ -25,6 +25,11 @@ func newDshLogCommand(
     cmd := &cobra.Command{
         Use:   "log <daemonset> [<options>]",
         Short: "get logs for <daemonset>",
+        Long:
+`Get logs for pods matching a given daemonset and node. Any combination is
+allowed.  If only a node is specified logs from all pods owned by a daemonset
+on that node will be shown. If only a daemonset is specified, all pods in that
+daemonset will have their logs shown.`,
         Args: cobra.MatchAll(cobra.ExactArgs(1)),
         RunE: func(cmd *cobra.Command, args []string) error {
             return dshLog.getLogs(

@@ -23,6 +23,11 @@ func newDshDescribeCommand(
     cmd := &cobra.Command{
         Use: "describe <daemonset> [<options>]",
         Short: "describe pods for <daemonset>",
+        Long:
+`Describe pods matching a given daemonset and node. Any combination is allowed.
+If only a node is specified all pods owned by a daemonset on that node will be
+described. If only a daemonset is specified, a all pods in that daemonset will
+be described.`,
         Args: cobra.MatchAll(cobra.MaximumNArgs(1)),
         RunE: func(cmd *cobra.Command, args []string) error {
             ds := ""
