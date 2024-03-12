@@ -4,11 +4,12 @@ import (
     "context"
     "k8s.io/client-go/tools/clientcmd"
     "k8s.io/client-go/kubernetes"
+    "k8s.io/client-go/rest"
     corev1 "k8s.io/api/core/v1"
     metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-func getClientSet(context string) (*kubernetes.Clientset, error) {
+func getClientSet(context string) (*kubernetes.Clientset, *rest.Config, error) {
     loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
     configOverrides := &clientcmd.ConfigOverrides{
         CurrentContext: context,
@@ -19,11 +20,11 @@ func getClientSet(context string) (*kubernetes.Clientset, error) {
 
     config, err := kubeConfig.ClientConfig()
     if err != nil {
-        return nil, err
+        return nil, nil, err
     }
 
     clientset, err := kubernetes.NewForConfig(config)
-    return clientset, err
+    return clientset, config, err
 }
 
 func getDaemonSetsForNode(

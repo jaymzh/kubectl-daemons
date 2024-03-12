@@ -48,7 +48,7 @@ func newDshGetCommand(
 func (sv *dshCmd) getPods(
     context string, namespace string, ds string, nodeName string, output string,
 ) error {
-    clientset, err := getClientSet(context)
+    clientset, _, err := getClientSet(context)
     if err != nil {
         return err
     }

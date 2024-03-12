@@ -31,7 +31,7 @@ func newDshDeleteCommand(
 func (sv *dshCmd) deletePods(
     ccontext string, namespace string, ds string, nodeName string,
 ) error {
-    clientset, err := getClientSet(ccontext)
+    clientset, _, err := getClientSet(ccontext)
     if err != nil {
         return err
     }

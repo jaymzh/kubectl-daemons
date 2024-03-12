@@ -53,7 +53,7 @@ func (sv *dshCmd) getLogs(
     ccontext string, namespace string, ds string, nodeName string, container string,
     follow bool, lines *int,
 ) error {
-    clientset, err := getClientSet(ccontext)
+    clientset, _, err := getClientSet(ccontext)
     if err != nil {
         return err
     }
