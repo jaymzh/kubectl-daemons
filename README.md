@@ -7,9 +7,9 @@
 
 kubectl-daemons is a kubectl plugin to help with daemonset work. When running a
 kubernetes infrastructure, it is common to do lots of work with deamonsets, but
-the tools are optimized for other types of k8s objects. With daemonsets, you
-often know a node and a DS you care about, and this plugin lets you focus on
-that.
+the tools are optimized for other workflows where node names aren't
+particularly important.. With daemonsets, you often know a node and a DS you
+care about, and this plugin lets you focus on that.
 
 Previously you'd do things like:
 
@@ -21,11 +21,24 @@ kubectl get pods -o wide | grep <daemonset> | grep <node>
 ...
 ```
 
-Now you can do:
+Or maybe:
+
+```shell
+kubectl get pods --field-selector spec.nodeName=<node>
+kubectl describe pod <pod_from above>
+kubectl delete pod <pod_from above>
+kubectl get pods ---field-selector spec.nodeName=<node>
+...
+```
+
+No more using a long `get` command to find the pod name,
+and having to keep track of it! Just specify the DS and
+the node:
 
 ```shell
 kubectl d describe <daemonset> -N <node>
 kubectl d delete <daemonset> -N <node>
+kubectl d logs <daemonset> -N <node>
 ```
 
 ## General Usage
@@ -63,10 +76,28 @@ kubectl d logs <daemonset> -N <node>
 
 NOTE: -N is required here.
 
-And you can even describe:
+You can describe pods:
 
 ```bash
 kubectl d describe <daemonset> [-N <node>] # node optional
+```
+
+You can even exec:
+
+```bash
+kubectl d exec <daemonset> -N <node> -- echo "Hello world"
+```
+
+Or interactively:
+
+```bash
+kubectl d exec <daemonset> -N <node> -it -- /bin/bash
+```
+
+And you can list all daemonsets on a node:
+
+```bash
+kubectl d list <node>
 ```
 
 ## Installing

@@ -32,6 +32,12 @@ func newDshExecCommand(
     cmd := &cobra.Command{
         Use:   "exec <daemonset> [<options>] -- <command> [args...]",
         Short: "execute arbitrary commands in pod for <daemonset>",
+        Long:
+`Executes an arbitrary command inside the pod of the specified daemonset on the
+specified node.  To pass arguments to the command, use '--' followed by the
+command and its arguments. For example:
+
+kubectl d exec my-daemonset -c my-container -- echo "Hello, world!"`,
         Args: cobra.MatchAll(cobra.MinimumNArgs(1)),
         RunE: func(cmd *cobra.Command, args []string) error {
             if len(args) > 1 && cmd.ArgsLenAtDash() != -1 {
@@ -171,9 +177,9 @@ func (sv *dshCmd) execPod(
         }
     }
 
-	if !stdin {
-		streamOptions.Stdin = nil
-	}
+    if !stdin {
+        streamOptions.Stdin = nil
+    }
 
     ctx, cancel := context.WithCancel(context.Background())
     defer cancel()

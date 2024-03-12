@@ -19,7 +19,10 @@ func newDshListCommand(
 
     cmd := &cobra.Command{
         Use:   "list [<node>] [<options>]",
-        Short: "list daemonsets on a node. You can pass in the node as the arg, or use -N",
+        Short: "list daemonsets on a node.",
+        Long:
+`Will list alll daemonsets on a node. You can pass in the node as the arg, or
+use -N.`,
         Args: cobra.MatchAll(cobra.MaximumNArgs(1)),
         RunE: func(cmd *cobra.Command, args []string) error {
             if len(args) == 1 {
