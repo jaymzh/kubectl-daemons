@@ -109,8 +109,13 @@ the binary (`kubectl-d`) in your PATH.
 If you get an error like "macOS cannot verify this app..." see [this page](
 https://zaiste.net/os/macos/howtos/resolve-macos-cannot-be-opened-because-the-developer-cannot-be-verified-error/).
 
-We've submitted this plugin to Kraw, and will update these installation
-instructions once that's merged.
+If you are a [Krew](https://krew.sigs.k8s.io/) user, we maintain our own index,
+which you can use to install `kubectl-daemons`:
+
+```shell
+kubectl krew index add jaymzh https://github.com/jaymzh/jaymzh-krew.git
+kubectl krew install kubectl-d
+```
 
 ## Building from source
 
@@ -160,6 +165,13 @@ Ideally, plugins would be a library that could hook into various stages within
 kubectl and allow you to not have to implement so much yourself, but it turns
 out that's not how kubectl plugins work.
 
-**Will you be submitting this to Krew?**
+**Why do you maintain your own Krew index?**
 
-Yes! That'll happen very soon.
+Krew
+[felt](https://github.com/kubernetes-sigs/krew-index/pull/3679#issuecomment-1987113765)
+this plugin wasn't sufficiently different from what you could do with `kubectl`
+options and as such did not accept it.
+
+However, a custom krew index is a simple [git
+repository](https://github.com/jaymzh/jaymzh-krew), so maintaining our own
+isn't an issue.
