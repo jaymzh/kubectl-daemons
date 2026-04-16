@@ -74,7 +74,7 @@ func (sv *dshCmd) getLogs(
     }
 
     if len(pods) > 1 {
-        return errors.New("Matched more then one pod somehow")
+        return errors.New("matched more then one pod somehow")
     }
 
     var tlines *int64
@@ -95,7 +95,7 @@ func (sv *dshCmd) getLogs(
         fmt.Printf("Error retrieving logs: %v\n", err)
         os.Exit(1)
     }
-    defer podLog.Close()
+    defer podLog.Close() //nolint:errcheck
 
     buf := make([]byte, 4096)
     for {

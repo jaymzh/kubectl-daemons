@@ -39,7 +39,7 @@ func (sv *dshCmd) getDaemonSets(
     context string, namespace string, nodeName string, output string,
 ) error {
     if nodeName == "" {
-        return errors.New("You must specify a node")
+        return errors.New("you must specify a node")
     }
 
     clientset, _, err := getClientSet(context)

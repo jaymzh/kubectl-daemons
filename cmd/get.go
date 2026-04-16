@@ -72,7 +72,8 @@ func (sv *dshCmd) getPods(
     var printer printers.ResourcePrinter
     if output == "" || output == "wide" {
         printer = printers.NewTablePrinter(printers.PrintOptions{})
-        if output == "" {
+		switch output {
+		case "":
             table = metav1.Table{
                 ColumnDefinitions: []metav1.TableColumnDefinition{
                     {Name: "NAME"},
@@ -82,7 +83,7 @@ func (sv *dshCmd) getPods(
                     {Name: "AGE"},
                 },
             }
-        } else if output == "wide" {
+		case "wide":
             // when I append(table.ColumnDefinitions, ...) I get
             // syntax errors. No idea why.
             table = metav1.Table{
@@ -98,7 +99,7 @@ func (sv *dshCmd) getPods(
                     {Name: "READINESS GATES"},
                 },
             }
-        }
+		}
     }
 
     for _, pod := range pods {
