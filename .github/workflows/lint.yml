@@ -39,4 +39,4 @@ jobs:
       - name: checkout
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
       - name: MarkdownLint mdl Action
-        uses: actionshub/markdownlint@2601ac85428122bc70b8d1ec4d539d1cfe17c0b3 # 1.2.0
+        uses: actionshub/markdownlint@6c82ff529253530dfbf75c37570876c52692835f # 3.1.4
