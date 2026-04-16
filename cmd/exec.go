@@ -45,7 +45,7 @@ kubectl d exec my-daemonset -c my-container -- echo "Hello, world!"`,
                     tty, remoteCommand,
                 )
             } else {
-                return errors.New("At least some command is required")
+                return errors.New("at least some command is required")
             }
         },
     }

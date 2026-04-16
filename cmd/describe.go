@@ -89,8 +89,8 @@ func (sv *dshCmd) describePods(
  * here we are.
  */
 func dumpPod(pod *v1.Pod, events *v1.EventList) {
-    fmt.Printf("Name:         %s\n", pod.ObjectMeta.Name)
-    fmt.Printf("Namespace:    %s\n", pod.ObjectMeta.Namespace)
+    fmt.Printf("Name:         %s\n", pod.Name)
+    fmt.Printf("Namespace:    %s\n", pod.Namespace)
     fmt.Printf("Priority:     %d\n", *pod.Spec.Priority)
     fmt.Printf("Node:         %s/%s\n", pod.Spec.NodeName, pod.Status.HostIP)
     fmt.Printf("Start Time:   %s\n", pod.Status.StartTime.Format(time.RFC1123))
@@ -203,9 +203,9 @@ func dumpPod(pod *v1.Pod, events *v1.EventList) {
     for _, volume := range pod.Spec.Volumes {
         fmt.Printf("  %s:\n", volume.Name)
 
-        if volume.VolumeSource.Projected != nil {
+        if volume.Projected != nil {
             fmt.Printf("    Type:                    Projected\n")
-            for _, source := range volume.VolumeSource.Projected.Sources {
+            for _, source := range volume.Projected.Sources {
                 if source.ServiceAccountToken != nil {
                     projection := source.ServiceAccountToken
                     fmt.Printf(
@@ -216,7 +216,7 @@ func dumpPod(pod *v1.Pod, events *v1.EventList) {
                     projection := source.ConfigMap
                     fmt.Printf(
                         "    ConfigMapName:           %s\n",
-                        projection.LocalObjectReference.Name,
+                        projection.Name,
                     )
                     fmt.Printf(
                         "    ConfigMapOptional:       %v\n",
