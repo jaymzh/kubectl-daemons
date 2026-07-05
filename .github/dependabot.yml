@@ -3,7 +3,7 @@ updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: weekly
+      interval: monthly
     groups:
       all-minor-patch:
         patterns: ["*"]
@@ -12,11 +12,10 @@ updates:
   - package-ecosystem: gomod
     directory: /
     schedule:
-      interval: weekly
+      interval: monthly
     groups:
       all-minor-patch:
         patterns: ["*"]
         update-types: ["minor", "patch"]
       k8s-ecosystem:
         patterns: ["k8s.io*"]
-

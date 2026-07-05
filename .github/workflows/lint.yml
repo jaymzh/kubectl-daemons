@@ -28,6 +28,7 @@ jobs:
         with:
           version: latest
           args: --timeout=5m
+
   markdownlint:
     runs-on: ubuntu-latest
     steps:
@@ -40,3 +41,13 @@ jobs:
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       - name: MarkdownLint mdl Action
         uses: actionshub/markdownlint@6c82ff529253530dfbf75c37570876c52692835f # 3.1.4
+
+  linelint:
+    runs-on: ubuntu-latest
+    name: Check if all files end in newline
+    steps:
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - name: Linelint
+        uses: fernandrone/linelint@7907a5dca0c28ea7dd05c6d8d8cacded713aca11 # 0.0.6
+        id: linelint
